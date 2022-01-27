@@ -7,6 +7,46 @@ namespace Employee_payRoll
         static void Main(string[] args)
         {
             Console.WriteLine("Wecome to Employee PayRoll Problem using Ado.Net!");
+            bool flag = true;
+            EmployeeDBconnectivity employeeConfig = new EmployeeDBconnectivity();
+            EmployeeInfo data = new EmployeeInfo();
+            while (flag)
+            {
+                Console.WriteLine("Enter your Choice Number to Execute the Program Press. \n 1.Add\n 2.Delete by ID \n 3.Update Employee\n 4.View\n 5-Exit");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    // It Will Add Data to the Table
+                    case 1:
+                        EmployeeInfo obj = new EmployeeInfo();
+                        obj.Name = "Tanya";
+                        obj.Salary = 20000.00;
+                        obj.Startdate = DateTime.Now;
+                        obj.gender = 'F';
+                        obj.phoneNo = 9124234334;
+                        obj.department = "Account";
+                        obj.officeAddress = "kanpur";
+                        obj.Basic_Pay = 5000.00;
+                        obj.deductions = 1000.00;
+                        obj.taxable_pay = 300.00;
+                        obj.income_tax = 400.00;
+                        obj.net_pay = 25000;
+                        obj.dept_id = 3;
+                        var result = employeeConfig.AddEmployee(obj);
+                        if (result != null)
+                        {
+                            Console.WriteLine("Data Added Successfully!!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Data not Added!!");
+                        }
+                        break;
+                    case 2:
+                        flag = false;
+                        break;
+                }
+            }
         }
     }
 }
