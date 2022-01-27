@@ -49,6 +49,23 @@ namespace Employee_payRoll
                         Console.WriteLine("Data deleted successfully!!");
                         break;
                     case 3:
+                        Console.WriteLine("Enter Id of employee whoes data want to edit:");
+                        int employeeid = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter new name:");
+                        string newname = Console.ReadLine();
+                        Console.WriteLine("Enter new salary:");
+                        string newsalry = Console.ReadLine();
+                        bool res = employeeConfig.UpdateEmployee(employeeid, newname, newsalry);
+                        if (res != null)
+                        {
+                            Console.WriteLine("Successfully Added!!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Not Added!!");
+                        }
+                        break;
+                    case 4:
                         flag = false;
                         break;
                 }
