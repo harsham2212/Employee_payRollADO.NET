@@ -18,7 +18,7 @@ create procedure sp_AddPayRoleServices
 )
 as 
 begin TRY 
-  Insert into employee_payroll values( @Name, @Salary, @Startdate, @gender, @phoneNo, @department, @officeAddress, @Basic_Pay, @deductions,@taxable_pay, @income_tax ,@net_pay , @dept_id)
+  Insert into employee_payroll values(@Name, @Salary, @Startdate, @gender, @phoneNo, @department, @officeAddress, @Basic_Pay, @deductions,@taxable_pay, @income_tax ,@net_pay , @dept_id)
 End TRY
 BEGIN CATCH
 SELECT

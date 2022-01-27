@@ -66,6 +66,10 @@ namespace Employee_payRoll
                         }
                         break;
                     case 4:
+                        employeeConfig.GetAllEmployees();
+                        //Console.WriteLine("Enter ID to get Data:");
+                        break;
+                    case 5:
                         flag = false;
                         break;
                 }

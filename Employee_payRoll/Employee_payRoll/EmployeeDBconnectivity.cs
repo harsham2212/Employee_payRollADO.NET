@@ -8,20 +8,19 @@ namespace Employee_payRoll
 {
     public class EmployeeDBconnectivity
     {
-            public List<EmployeeInfo> EmpList = new List<EmployeeInfo>();
-            public SqlConnection con;
-            public void Connection()
-            {               
+        public List<EmployeeInfo> EmpList = new List<EmployeeInfo>();
+        public SqlConnection con;
+        public void Connection()
+        {
             string connectionString = @"Data Source=FRIDAY\BARCA;Initial Catalog=payroll_services;Integrated Security=True";
-
             con = new SqlConnection(connectionString);
-            }
-            public EmployeeInfo AddEmployee(EmployeeInfo obj)
+        }
+        public EmployeeInfo AddEmployee(EmployeeInfo obj)
+        {
+            try
             {
-                try
-                {
-                    Connection();
-                    SqlCommand com = new SqlCommand("sp_AddPayRoleServices", con);
+                Connection();
+                SqlCommand com = new SqlCommand("sp_AddPayRoleServices", con);
                 com.CommandType = CommandType.StoredProcedure;
                 com.Parameters.AddWithValue("@Name", obj.Name);
                 com.Parameters.AddWithValue("@Salary", obj.Salary);
@@ -39,10 +38,7 @@ namespace Employee_payRoll
                 con.Open();
                 int i = com.ExecuteNonQuery();
                 con.Close();
-
-
                 return obj;
-
             }
             catch (Exception e)
             {
@@ -105,6 +101,38 @@ namespace Employee_payRoll
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+        //To Get Employee details 
+        public DataSet GetAllEmployees()
+        {
+            try
+            {
+                Connection();
+                SqlCommand com = new SqlCommand("GetPayRoleService", con);
+                com.CommandType = CommandType.StoredProcedure;
+                DataSet dataSet = new DataSet();
+                SqlDataAdapter adapter = new SqlDataAdapter("GetPayRoleService", this.con);
+                adapter.Fill(dataSet, "employee_payroll");
+                //con.Open();
+                foreach (DataRow dR in dataSet.Tables["employee_payroll"].Rows)
+                {
+                    Console.WriteLine("\t" + dR["id"] + "  " + dR["Name"] + " " + dR["Salary"] + " " + dR["gender"] + " " + dR["phoneNo"] + " " + dR["department"] + " " + dR["officeAddress"] + " " + dR["Basic_Pay"] + " " + dR["deductions"] + " " + dR["taxable_pay"] + " " + dR["income_tax"] + " " + dR["net_pay"] + " " + dR["dept_id"]);
+                }
+                con.Close();
+                return dataSet;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void Display()
+        {
+            foreach (var item in EmpList)
+            {
+                Console.WriteLine("\nName\tBasic_Pay\tDate\tgender\n");
+                Console.WriteLine(item.Name + "\t" + item.Basic_Pay + "\t" + item.Startdate + "\t" + item.gender);
             }
         }
     }
