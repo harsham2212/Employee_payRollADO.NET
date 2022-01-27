@@ -43,6 +43,12 @@ namespace Employee_payRoll
                         }
                         break;
                     case 2:
+                        Console.WriteLine("Enter id to Delete Data:");
+                        int num = Convert.ToInt32(Console.ReadLine());
+                        employeeConfig.DeleteEmployee(num);
+                        Console.WriteLine("Data deleted successfully!!");
+                        break;
+                    case 3:
                         flag = false;
                         break;
                 }
